@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+
+<h3>Table scheben</h3>
+
+<div class="container mr-5">
+    <form action="#" th:action="@{'/kariers/'+${karier.id}}" th:object="${karier}" method="post">
+        <p>Название карьера <input type="text" th:field="*{karierName}" /></p>
+        <p>Адрес карера <input type="text" th:field="*{karierAddress}" /></p>
+        <p>Юридичекое лицо <input type="text" th:field="*{karierLawFace}" /></p>
+        <p>Адрес юридического лица: <input type="text" th:field="*{lawAddress}" /></p>
+        <p>E-mail: <input type="text" th:field="*{email}" /></p>
+        <p>Координаты: <input type="text" th:field="*{coordinates}" /></p>
+        <p>ИНН: <input type="text" th:field="*{inn}" /></p>
+        <div class="form-group">
+            <label>Область
+                <select th:field="${karier.oblast}">
+                    <option th:each="oblast : ${oblasts}"
+                            th:value="${oblast}"
+                            th:text="${oblast.displayName}"
+                    ></option>
+                </select>
+            </label>
+        </div>
+        <p>номер лицензии: <input type="text" th:field="*{nomerLicenzia}" /></p>
+        <p>Дата выдачи лицензии: <input type="text" th:field="*{dataLicenzia}" /></p>
+        <p>График работы карьера: <input type="text" th:field="*{grafikRabota}" /></p>
+        <p>Общий контакт: <input type="text" th:field="*{contactObshiy}" /></p>
+        <p>Директор контакт: <input type="text" th:field="*{contactDiretor}" /></p>
+        <p>Весовая контакт: <input type="text" th:field="*{contactVesovaya}" /></p>
+        <p>Доп контакт: <input type="text" th:field="*{dopContact}" /></p>
+        <p>Комментарий: <input type="text" th:field="*{commentOpen}" /></p>
+        <p>Внутренний комментарий: <input type="text" th:field="*{commentClose}" /></p>
+        <p>Код ж/д: <input type="text" th:field="*{kodZhd}" /></p>
+        <p><input type="submit" value="Редактировать" class="btn btn-primary" /> </p>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+    <div class="container">
+        <a href="/kariers/new" class="btn btn-success">Добавить новый карьер</a>
+    </div>
+<hr>
+    <div class="container">
+     <h3>Список карьеров</h3>
+    <ul>
+      <th:block th:each="karier : ${kariers}">
+        <li><a th:href="@{/kariers/{id}(id=${karier.getId()})}" th:text="${karier.getKarierName()}">user</a></li>
+      </th:block>
+    </ul>
+    </div>
+</body>
+</html>

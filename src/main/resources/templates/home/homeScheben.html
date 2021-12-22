@@ -1,0 +1,140 @@
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<head th:replace="fragments :: head"></head>-->
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application - Bootstrap Radio Buttons</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<a href="/login">Ввести логин</a>
+<h3>Table scheben</h3>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>ГОСТ</th>
+        <th>Вид</th>
+        <th>Фракция</th>
+        <th>Марка Прочности</th>
+        <th>Насыпная плотность</th>
+        <th>% илистых/глинистых</th>
+        <th>Морозостойкость</th>
+        <th>Радиоактивность</th>
+        <th>% слыбых пород</th>
+        <th>Лещадность</th>
+        <th>Марка по истераемости</th>
+        <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:blok th:each="karshe:${schebens}">
+        <tr>
+            <td th:text="${karshe.id}" />
+            <td th:text="${karshe.gost.gostEnum}" />
+            <td th:text="${karshe.vidScheben.vidSchebenEnum}" />
+            <td th:text="${karshe.frakcia.frakciaEnum}" />
+            <td th:text="${karshe.markaProchnosti.markaProchnostiEnum}" />
+            <td th:text="${karshe.nasypnayaPlotnost}" />
+            <td th:text="${karshe.soderzhanieIlistyh}" />
+            <td th:text="${karshe.morozostoikost.morozostoikostEnum}" />
+            <td th:text="${karshe.radioaktivnost.radioaktivnostEnum}" />
+            <td th:text="${karshe.slabyePorody}" />
+            <td th:text="${karshe.leshadnost.leshadnostEnum}" />
+            <td th:text="${karshe.markaPoIsteraemosti.markaPoIsteraemostiEnum}" />
+            <td th:text="${karshe.price}" />
+<!--            <td><a th:href="@{'/schebens/' + ${karshe.id} + '/edit'}" class="btn btn-primary green">Редактировать</a></td>
+            <td><a th:href="@{'/schebens/' + ${karshe.id} + '/delete'}" class="btn btn-danger">delete</a></td>-->
+        </tr>
+    </th:blok>
+    </tbody>
+</table>
+
+<form th:action="@{/filter}" th:object="${scheben}" method="get" class="mt-5">
+    <button type="submit">Найти</button>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-3">
+            <legend class="text-center color1 mb-2">Фракция</legend>
+            <div th:each="frak : ${frakciashebensEnum}">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" th:field="${scheben.frakcia}" th:value="${frak}" class="custom-control-input">
+                    <label class="custom-control-label" th:for="${scheben.frakcia}" th:text="${frak.frakciaEnum}">model</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="col-3">
+        <legend class="text-center color1 mb-2">Вид щебня</legend>
+        <div th:each="vid : ${vidSchebensEnum}">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" th:field="${scheben.vidScheben}" th:value="${vid}" class="custom-control-input">
+                <label class="custom-control-label" th:for="${scheben.vidScheben}" th:text="${vid.vidSchebenEnum}">model</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-3">
+        <legend class="text-center color1 mb-2">Марка прочности</legend>
+        <div th:each="mark : ${markaProchnostiEnum}">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="form-check-input" type="checkbox" th:field="${scheben.markaProchnosti}" th:value="${mark}">
+                <label class="form-check-label" th:for="${scheben.markaProchnosti}" th:text="${mark.markaProchnostiEnum}">model</label>
+            </div>
+        </div>
+        <div class="col-3">
+        <legend class="text-center color1 mb-2">Радиоактивность</legend>
+        <div th:each="radi : ${radioaktivnostEnum}">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="form-check-input" type="radio" th:field="${scheben.radioaktivnost}" th:value="${radi}">
+                <label class="form-check-label" th:for="${scheben.radioaktivnost}" th:text="${radi.radioaktivnostEnum}">model</label>
+            </div>
+        </div>
+            <div class="col-3">
+                <legend class="text-center color1 mb-2">ГОСТ</legend>
+                <div th:each="gos : ${gostEnum}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input class="form-check-input" type="checkbox" th:field="${scheben.gost}" th:value="${gos}">
+                        <label class="form-check-label" th:for="${scheben.gost}" th:text="${gos.gostEnum}">model</label>
+                    </div>
+                </div>
+            <div class="col-3">
+                <legend class="text-center color1 mb-2">Лещадность</legend>
+                <div th:each="lesh : ${leshadnostEnum}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input class="form-check-input" type="checkbox" th:field="${scheben.leshadnost}" th:value="${lesh}">
+                        <label class="form-check-label" th:for="${scheben.leshadnost}" th:text="${lesh.leshadnostEnum}">model</label>
+                    </div>
+                </div>
+            <div class="col-3">
+                <legend class="text-center color1 mb-2">Марка по итстираемости</legend>
+                <div th:each="ister : ${markaPoIsteraemostiEnum}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input class="form-check-input" type="checkbox" th:field="${scheben.markaPoIsteraemosti}" th:value="${ister}">
+                        <label class="form-check-label" th:for="${scheben.markaPoIsteraemosti}" th:text="${ister.markaPoIsteraemostiEnum}">model</label>
+                    </div>
+                </div>
+            <div class="col-3">
+                <legend class="text-center color1 mb-2">Морозостойкость</legend>
+                <div th:each="moroz : ${morozostoikostEnum}">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input class="form-check-input" type="checkbox" th:field="${scheben.morozostoikost}" th:value="${moroz}">
+                        <label class="form-check-label" th:for="${scheben.morozostoikost}" th:text="${moroz.morozostoikostEnum}">model</label>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    </div>
+    </div></div>
+
+</form>
+
+
+</body>
+</html>
