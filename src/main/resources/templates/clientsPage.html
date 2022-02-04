@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragmentsLK :: head"></head>
+<body>
+<block th:insert="fragmentsLK :: navBar"></block>
+<main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+        </div>
+        <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    </div>
+    <!--<canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1531" height="646" style="display: block; width: 1531px; height: 646px;"></canvas>-->
+
+    <h2>Клиенты <a class="btn btn-success btn-sm" th:href="@{'clients' +'/new'}" role="button">Добавить клиента</a>
+    </h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th>Название <th>компании</th></th>
+                <th>ИНН</th>
+                <th>Контакт</th>
+                <th>Телефон</th>
+                <th>Объекты</th>
+                <th>Редактировать</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:blok th:each="car:${allCars}">
+                <tr>
+                    <td th:text="${car.markaCar}"/>
+                    <td th:text="${car.nomerCar}"/>
+                    <td th:text="${car.obiemKuzova}"/>
+                    <td th:text="${car.vidCar.carEnum}"/>
+                    <td><a th:href="@{'/cars/' + ${car.id}}" class="btn btn-info btn-sm">Детали</a></td>
+                    <td><a th:href="@{'/cars/' + ${car.id} + '/edit'}" class="btn btn-success btn-sm">Редактировать</a>
+                    </td>
+                    <td><a th:href="@{'/cars/' + ${car.id} + '/delete'}"
+                           class="btn btn-danger btn-sm">Удалить</a></td>
+                </tr>
+            </th:blok>
+            </tbody>
+        </table>
+    </div>
+</main>
+</div>
+</div>
+<block th:insert="fragmentsLK :: skripty"></block>
+</body>
+</html>

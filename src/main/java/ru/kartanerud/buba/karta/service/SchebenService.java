@@ -11,31 +11,35 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class SchebenService {
     private final SchebenRepo schebenRepo;
 
 
-    public Scheben addScheben(Scheben scheben){
+    public Scheben addScheben(Scheben scheben) {
         return schebenRepo.save(scheben);
     }
-    public List<Scheben> getSchebens(){
+
+    public List<Scheben> getSchebens() {
         return schebenRepo.findAll();
     }
+
     public Scheben getScheben(Long id) {
         return schebenRepo.findById(id).orElseThrow(() -> new SchebenNotFoundException(id));
     }
-        public Scheben getSchebenKarierId(Long karierId){
-            return schebenRepo.findByKarierId(karierId);
+
+    public Scheben getSchebenKarierId(Long karierId) {
+        return schebenRepo.findByKarierId(karierId);
     }
-    public Scheben deleteScheben(Long id){
+
+    public Scheben deleteScheben(Long id) {
         Scheben scheben = getScheben(id);
         schebenRepo.delete(scheben);
         return scheben;
     }
+
     @Transactional
-    public Scheben editScheben(Long id, Scheben scheben){
+    public Scheben editScheben(Long id, Scheben scheben) {
         Scheben schebenToEdit = getScheben(id);
         schebenToEdit.setGost(scheben.getGost());
         schebenToEdit.setVidScheben(scheben.getVidScheben());

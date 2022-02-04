@@ -52,6 +52,13 @@ public class Scheben {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private Karier karier;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Reis> reises;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "orders_shebens",
+            joinColumns = @JoinColumn(name = "schebens_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private List<Order> orders;
 
     @Override
     public boolean equals(Object o) {

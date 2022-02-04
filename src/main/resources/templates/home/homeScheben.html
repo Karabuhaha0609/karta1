@@ -1,6 +1,6 @@
 
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <!--<head th:replace="fragments :: head"></head>-->
 <head>
     <meta charset="UTF-8"/>
@@ -9,8 +9,9 @@
     <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
+<a th:href="@{/users/new}">Личный кабинет</a>
+<a th:href="@{/login}">Ввести логин</a>
 
-<a href="/login">Ввести логин</a>
 <h3>Table scheben</h3>
 <table class="table table-bordered">
     <thead>

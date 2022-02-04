@@ -19,9 +19,9 @@ public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order order;
+    private Order orders;
     @ManyToOne
     @JoinColumn(name = "scheben_id")
     private Scheben scheben;

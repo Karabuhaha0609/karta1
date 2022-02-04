@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow"><link rel="canonical" href="https://bootstrap5.ru/examples/dashboard">
+    <meta name="description" content="Базовая оболочка панели администратора с фиксированной боковой панелью и навигационной панелью.">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors, Alexey Golyagin">
+    <meta name="docsearch:language" content="ru">
+    <meta name="docsearch:version" content="5.0">
+    <title>Страница перевозчика</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootstrap5.ru/css/docs.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="https://bootstrap5.ru/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="https://bootstrap5.ru/img/favicons/manifest.json">
+    <link rel="mask-icon" href="https://bootstrap5.ru/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+    <!-- Facebook -->
+    <meta property="og:url" content="https://bootstrap5.ru/examples/dashboard">
+    <meta property="og:title" content="Бесплатный bootstrap 5 шаблон административной панели">
+    <meta property="og:description" content="Базовая оболочка панели администратора с фиксированной боковой панелью и навигационной панелью.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://bootstrap5.ru/img/examples/dashboard.png">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="1000">
+    <meta property="og:image:height" content="500">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/css/examples/dashboard.css" rel="stylesheet"><style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style></head>
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">КартаНеруд</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <span class="username nav-link" th:text="${#authentication.getPrincipal().getUsername()}">Гость</span>
+            <a class="nav-link" href="/logout">Выйти</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            Сводная таблица
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 1000 1000" style="fill:#0273a2"><title>Dump Truck Variant Side View SVG icon</title><g><path d="M50.7,577.9h626.1V322.4h0.6l-0.6-2.8v-4.4h-1l-6.7-28.8l84.8-23.7l0.4-8.9l-104,10.7l-7.6,0.8l-2.9,12.5l-8.7,37.3H103.6L17.1,577.9v28.5c-4.4,5.9-7.1,13-7.1,20.9v3.1c0,15.9,10.7,29.3,25.2,33.5c11.8-30.7,41.6-52.6,76.4-52.6c35.4,0,65.5,22.5,77,54h7.5c11.5-31.5,41.6-54,77-54c35.3,0,65.5,22.5,77,54h337.5v-73H50.7V577.9z M591.4,384v169.6h-50.6L591.4,384z M453.2,338.9h51.4l-64,214.7h-51.4L453.2,338.9z M312.3,338.9h51.4l-64,214.7h-51.4L312.3,338.9z M172.7,338.9h51.4l-64,214.7h-51.4L172.7,338.9z M109,624.2c-33.6,0-60.9,27.3-60.9,60.9c0,33.6,27.3,60.9,60.9,60.9c33.6,0,60.9-27.3,60.9-60.9C169.9,651.5,142.6,624.2,109,624.2z M109,727.4c-23.3,0-42.3-19-42.3-42.3c0-23.3,19-42.3,42.3-42.3c23.3,0,42.3,19,42.3,42.3C151.3,708.5,132.3,727.4,109,727.4z M270.4,624.2c-33.6,0-60.9,27.3-60.9,60.9c0,33.6,27.3,60.9,60.9,60.9c33.6,0,60.9-27.3,60.9-60.9C331.4,651.5,304,624.2,270.4,624.2z M270.4,727.4c-23.3,0-42.3-19-42.3-42.3c0-23.3,19-42.3,42.3-42.3c23.3,0,42.3,19,42.3,42.3C312.7,708.5,293.7,727.4,270.4,727.4z M840.2,624.2c-33.6,0-60.9,27.3-60.9,60.9c0,33.6,27.3,60.9,60.9,60.9c33.6,0,60.9-27.3,60.9-60.9C901.1,651.5,873.8,624.2,840.2,624.2z M840.2,727.4c-23.3,0-42.3-19-42.3-42.3c0-23.3,19-42.3,42.3-42.3c23.3,0,42.3,19,42.3,42.3C882.5,708.5,863.5,727.4,840.2,727.4z M990,524.3v-38.2l-38.1-167.8c0-11.6-16.9-11.6-23.3-11.6H727.2c-6.4,0-11.6,1.2-11.6,11.6v305.6c0,30.4,5.2,35.7,11.6,35.7h41.1c12.9-28.3,41.5-48.1,74.6-48.1c33.1,0,61.7,19.8,74.6,48.1h60.9c6.4,0,11.6-5.2,11.6-11.6v-58.7h-10.9v-64.9H990z M805.3,485.8h-44v-8.9h44V485.8z M752.5,462.6V337.7h168.1l19.2,124.9H752.5z M947.8,632.4h-31.2c-8.8-16.8-28-28.8-28-28.8h59.2L947.8,632.4L947.8,632.4z"></path></g>
+                            </svg>
+                                </path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            Автопарк
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" th:href="@{${perevozhikId}+'/voditels'}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 1000 1000" style="fill:#0273a2"><title>Repair Guy Outline SVG icon</title><g><g><path d="M674.8,327c-0.6,0-1.2-0.1-1.8-0.2c-36.9-8.5-86.3-12.8-146.8-12.8c-103.5,0-204.5,12.8-205.5,12.9c-2.1,0.3-4.1-0.3-5.8-1.6l-58.2-44.1c-2.4-1.8-3.5-4.8-3-7.7c0.5-2.9,2.6-5.3,5.5-6.2c66.6-20.7,142.3-31.1,225.2-31.1c140.8,0,255.1,30.7,256.3,31c3,0.8,5.2,3.3,5.7,6.3c0.5,3-0.8,6.1-3.3,7.9l-63.7,44.1C678,326.6,676.4,327,674.8,327z M278.8,278.2l43.1,32.7c18.2-2.2,110.2-12.6,204.3-12.6c59.8,0,109.2,4.2,146.9,12.4l46.3-32c-36.6-8.3-128-26.3-235.1-26.3C409.2,252.2,340.2,260.9,278.8,278.2z"></path></g><g><path d="M542.6,208.9c-2,0-4.1-0.8-5.6-2.3l-79.1-79.1l-19.9,19.9c-2,2-5,2.8-7.7,2c-2.8-0.8-4.9-3-5.6-5.7l-9.9-39.8c-0.7-2.7,0.1-5.6,2.1-7.5l53-52.9c3.1-3.1,8.1-3.1,11.2,0l24.8,24.8c3.1,3.1,3.1,8.1,0,11.2l-20,20l79.1,79.1c3.1,3.1,3.1,8.1,0,11.2l-16.8,16.8C546.6,208.1,544.6,208.9,542.6,208.9z M457.8,108.3c2,0,4.1,0.8,5.6,2.3l79.1,79.1l5.5-5.5L469,105c-3.1-3.1-3.1-8.1,0-11.2l20-19.9l-13.6-13.6l-44.2,44.1l5.4,21.8l15.6-15.6C453.8,109.1,455.8,108.3,457.8,108.3z"></path></g><g><path d="M500,629.2c-41.4,0-82.4-13.3-118.5-38.4c-78.9-55-127.9-160-127.9-274.3c0-11.2,0.6-22.9,1.9-36.4c-1.2-1.4-1.9-3.2-1.9-5.2V146.5C253.5,71.2,314.8,10,390,10h220c75.3,0,136.5,61.2,136.5,136.5V275c0,2-0.7,3.8-1.9,5.2c1.3,13.5,1.9,25.2,1.9,36.3c0,114.2-49,219.3-127.9,274.3C582.4,615.9,541.4,629.2,500,629.2z M269.4,269.3c0.1,0.1,0.3,0.3,0.4,0.4c1.5,1.7,2.2,3.9,2,6.1c-1.7,15.5-2.4,28.4-2.4,40.7c0,109.1,46.4,209.2,121.1,261.2c66.8,46.5,152,46.6,218.9,0c74.7-52.1,121.1-152.1,121.1-261.2c0-12.2-0.8-25.1-2.4-40.7c-0.3-2.3,0.5-4.5,2-6.2c0.2-0.2,0.3-0.3,0.5-0.5V146.5c0-66.5-54.1-120.6-120.6-120.6H390c-66.5,0-120.6,54.1-120.6,120.6V269.3z"></path></g><g><path d="M500,990c-83.8,0-167-10.5-240.6-30.3c-3.5-0.9-5.9-4.1-5.9-7.7v-74.5c0-4.4,3.6-8,7.9-8h477c4.4,0,7.9,3.6,7.9,8V952c0,3.6-2.4,6.7-5.9,7.7C666.9,979.5,583.8,990,500,990z M269.4,945.9c141.6,36.9,319.5,36.9,461.1,0v-60.4H269.4C269.4,885.5,269.4,945.9,269.4,945.9z"></path></g><g><path d="M192.5,937.6c-1,0-1.9-0.2-2.9-0.5c-33.8-13.1-63.9-28-89.5-44.4c-2.2-1.4-3.5-3.7-3.6-6.3c-0.2-4.2-0.4-8.5-0.4-12.7c0-71.1,32.3-140.6,91-195.8c2.3-2.2,5.7-2.7,8.6-1.5c2.9,1.3,4.8,4.1,4.8,7.3v246c0,2.6-1.3,5.1-3.5,6.6C195.6,937.1,194,937.6,192.5,937.6z M112.1,881.4c21.2,13.2,45.5,25.5,72.4,36.5V702.7c-47.6,50.1-72.6,108.8-72.6,170.8C111.9,876.2,112,878.8,112.1,881.4z"></path></g><g><path d="M738.5,806.9h-477c-4.4,0-8-3.6-8-8V632.7c0-2.9,1.5-5.5,4-6.9c38.8-22.4,81.4-39,126.7-49.3c2.2-0.5,4.5,0,6.3,1.2c66.8,46.5,152,46.6,218.9,0c1.9-1.3,4.1-1.7,6.3-1.2c45.3,10.4,87.9,27,126.7,49.3c2.4,1.4,4,4.1,4,6.9V799C746.5,803.4,742.9,806.9,738.5,806.9z M269.4,791h461.1V637.4c-35.4-19.9-74-34.9-115-44.6c-70.8,47.7-160.5,47.7-231.1,0c-41,9.7-79.6,24.7-115,44.6L269.4,791L269.4,791z"></path></g><g><path d="M807.5,937.6c-1.6,0-3.2-0.5-4.5-1.4c-2.2-1.5-3.5-3.9-3.5-6.6v-246c0-3.2,1.9-6,4.8-7.3c2.9-1.2,6.3-0.7,8.6,1.5c58.7,55.2,91,124.7,91,195.8c0,4.3-0.2,8.5-0.4,12.8c-0.1,2.6-1.5,4.9-3.7,6.3c-25.7,16.4-55.8,31.4-89.5,44.4C809.5,937.4,808.5,937.6,807.5,937.6z M815.5,702.7v215.2c26.9-11,51.2-23.3,72.5-36.5c0.1-2.6,0.2-5.2,0.2-7.8C888.1,811.6,863.1,752.9,815.5,702.7z"></path></g><g><path d="M738.5,960c-1.7,0-3.4-0.6-4.8-1.7c-2-1.5-3.1-3.8-3.1-6.3v-66.5H269.4V952c0,2.5-1.1,4.8-3.1,6.3c-2,1.5-4.5,2-6.9,1.4c-24.5-6.5-48-14.2-69.9-22.7c-3.1-1.2-5.1-4.1-5.1-7.4v-246c0-2.2,0.9-4.3,2.5-5.8c20.7-19.5,44.4-36.9,70.5-52c2.4-1.4,5.5-1.4,8,0c2.4,1.4,4,4,4,6.9V791h461.1V632.7c0-2.9,1.5-5.5,4-6.9c2.4-1.4,5.5-1.4,7.9,0c26.1,15.1,49.8,32.6,70.5,52c1.6,1.5,2.5,3.6,2.5,5.8v246c0,3.3-2,6.2-5.1,7.4c-21.9,8.5-45.4,16.1-69.8,22.7C739.9,959.9,739.2,960,738.5,960z M200.4,924.1c16.9,6.3,34.7,12.2,53.1,17.4v-64c0-4.4,3.6-8,7.9-8h477c4.4,0,7.9,3.6,7.9,8v64c18.4-5.2,36.2-11.1,53.1-17.5v-237c-15.9-14.7-33.8-28.2-53.1-40.3V799c0,4.4-3.6,8-7.9,8h-477c-4.4,0-8-3.6-8-8V646.8c-19.4,12.1-37.2,25.6-53.1,40.3L200.4,924.1L200.4,924.1z"></path></g><g><path d="M228.2,858.4c-13.2,0-23.9-10.7-23.9-23.8c0-13.1,10.7-23.9,23.9-23.9c13.1,0,23.8,10.7,23.8,23.9C252.1,847.7,241.4,858.4,228.2,858.4z M228.2,826.6c-4.4,0-7.9,3.6-7.9,8c0,4.4,3.6,8,7.9,8c4.4,0,7.9-3.6,7.9-8C236.2,830.1,232.6,826.6,228.2,826.6z"></path></g><g><path d="M771.5,853c-13.2,0-23.9-10.7-23.9-23.9c0-13.1,10.7-23.8,23.9-23.8c13.1,0,23.8,10.7,23.8,23.8C795.3,842.4,784.7,853,771.5,853z M771.5,821.2c-4.4,0-7.9,3.6-7.9,7.9c0,4.4,3.6,8,7.9,8c4.4,0,7.9-3.6,7.9-8C779.4,824.8,775.9,821.2,771.5,821.2z"></path></g><g><path d="M738.5,925.9h-477c-4.4,0-8-3.6-8-7.9c0-4.4,3.6-8,8-8h477c4.4,0,7.9,3.6,7.9,8C746.5,922.4,742.9,925.9,738.5,925.9z"></path></g></g>
+                            </svg>
+                            Водители
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 1000 1000" style="fill:#0273a2"><title>Worker Of Construction Working With A Shovel Beside Material Pile SVG icon</title><g><g id="iconos_7_"><polygon points="794.8,574.9 728.8,677.2 685.2,659.5 533,937.2 711.8,937.2 790.1,833.3 857.4,833.3 929.4,937.2 990,937.2 851.3,590.2 "></polygon><polygon points="848.4,850.6 798.8,850.6 733.5,937.2 908.3,937.2 "></polygon><path d="M79.5,771L28.1,937.2h71.4l57.1-165.5l16.3-128.8h54.4l49,133.5l-29.9,160.8h69.3L349.7,755l-34.1-96l-12.4-43.4l187.5,106.2l-35.2,61.1l81.7,47.1l86.4-150L542,632.9l-33.9,58.9L289.8,568.1L278,526.8l21.4-86.8l9.2,79.3l14.8,38.5l58.5,34.2l-24.3-86.2l-18.7-165.6l-60.6-2.5l-10.6-29.3c40.6-8.3,71.2-43.3,73.4-85.8l-182.4-24.2c-1.3,6.2-2.1,12.7-2.1,19.3c0,32,16.3,60.2,41,76.8l-1.6-0.2l-36.5,30.7l-46.8-3.9L10,411v136.6l81.6,20.2L79.5,771z M61.9,498v-40.8l34.6-31.6v80.2L61.9,498z"></path><path d="M340.3,205.1l27.7,3.7c3.7-82.4-32.1-136.3-96.9-144.9c-5.3-0.7-10.6-1.1-15.8-1.1c-57.4,0-99.2,42-115.5,115.7l24.2,3.2L340.3,205.1z"></path></g></g>
+                            </svg>
+                            Клиенты
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 1000 1000" style="fill:#0273a2"><title>Road Perspective Of Curves SVG icon</title><g><g id="Shape_19_1_"><g><path d="M428.7,410c-18-42.3-33.6-78.8-23.3-139.8C423.9,159.7,616,34.8,826.1,45.4l1.8-34.8C596.4-0.9,392.1,137.5,370.8,264.5c-11.9,70.9,7.2,115.7,25.6,159c13.9,32.7,28.3,66.4,30.6,114c3.7,74.8-223.5,194.5-367.6,252.4l13.1,32.2c40.5-16.3,395.5-162.5,389.4-286.3C459.4,482.1,443.1,443.8,428.7,410z M939.5,653.5C932.3,557,881.3,464,810.6,416.6c-123.8-82.9-133.5-127-107.4-171.4C763.4,143.1,919,141.6,919,141.6v-34.8c0,0-175.7,1.4-246.1,120.8c-51.8,87.9,27.8,156.6,119.2,217.8c62.2,41.6,106.5,124.3,113,210.6c5.7,76.5-14.2,192-141.9,308.3l23.7,25.7C924.9,864.3,945.8,737.6,939.5,653.5z M442.4,895.7l8.2,33.8c0.8-0.2,18.9-4.6,44.3-16.2l-14.7-31.6C458.3,891.8,442.6,895.7,442.4,895.7z M558.8,428.2c14.1,24.8,28.9,51.5,41.2,80.8l32.3-13.4c-13.1-31.1-28.4-58.8-43.1-84.5L558.8,428.2z M547.4,254l-32-14.2c-7.2,16.1-10.8,32.3-10.8,49.4c0,16.9,3.5,34.5,10.7,53.9l32.9-12.1c-5.8-15.5-8.6-29.2-8.6-41.8C539.6,277.1,542.2,265.6,547.4,254z M553,833.7l23.9,25.5c24.8-23,44.7-49.6,59.1-79.2l-31.5-15.2C592,790.5,574.7,813.7,553,833.7z M659.6,588.4l-34.6,5.6c1.7,10.5,2.9,21.1,3.7,31.7c0.5,8.1,0.8,16,0.8,23.7c0,11-0.6,21.9-1.7,32.4l34.9,3.6c1.2-11.7,1.9-23.8,1.9-36.1c0-8.4-0.3-17.1-0.9-26.1C662.8,611.6,661.4,599.9,659.6,588.4z M616.9,136c-13.4,9-25.7,18-36.5,26.8l22.1,27c10-8.1,21.5-16.5,34-24.9L616.9,136z"></path></g></g></g>
+                            </svg>
+                            Рейсы
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            Отчеты
+                        </a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        proba
+                    </a>
+                </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Saved reports</span>
+                    <a class="link-secondary" href="#" aria-label="Add a new report">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Current month
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Last quarter
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Social engagement
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            Year-end sale
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Сводная таблица</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        This week
+                    </button>
+                </div>
+            </div>
+
+            <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="1531" height="646" style="display: block; width: 1531px; height: 646px;"></canvas>
+
+            <h2>Section title</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>Номер ТТН</th>
+                        <th>Дата рейса</th>
+                        <th>Количество рейсов</th>
+                        <th>Стоимость рейса</th>
+                        <th>% водителя</th>
+                        <th>Детали</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                        <td  type="button" class="btn btn-success">sit</td>
+                    </tr>
+                    <tr>
+                        <td>1,002</td>
+                        <td>amet</td>
+                        <td>consectetur</td>
+                        <td>adipiscing</td>
+                        <td>elit</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>Integer</td>
+                        <td>nec</td>
+                        <td>odio</td>
+                        <td>Praesent</td>
+                    </tr>
+                    <tr>
+                        <td>1,003</td>
+                        <td>libero</td>
+                        <td>Sed</td>
+                        <td>cursus</td>
+                        <td>ante</td>
+                    </tr>
+                    <tr>
+                        <td>1,004</td>
+                        <td>dapibus</td>
+                        <td>diam</td>
+                        <td>Sed</td>
+                        <td>nisi</td>
+                    </tr>
+                    <tr>
+                        <td>1,005</td>
+                        <td>Nulla</td>
+                        <td>quis</td>
+                        <td>sem</td>
+                        <td>at</td>
+                    </tr>
+                    <tr>
+                        <td>1,006</td>
+                        <td>nibh</td>
+                        <td>elementum</td>
+                        <td>imperdiet</td>
+                        <td>Duis</td>
+                    </tr>
+                    <tr>
+                        <td>1,007</td>
+                        <td>sagittis</td>
+                        <td>ipsum</td>
+                        <td>Praesent</td>
+                        <td>mauris</td>
+                    </tr>
+                    <tr>
+                        <td>1,008</td>
+                        <td>Fusce</td>
+                        <td>nec</td>
+                        <td>tellus</td>
+                        <td>sed</td>
+                    </tr>
+                    <tr>
+                        <td>1,009</td>
+                        <td>augue</td>
+                        <td>semper</td>
+                        <td>porta</td>
+                        <td>Mauris</td>
+                    </tr>
+                    <tr>
+                        <td>1,010</td>
+                        <td>massa</td>
+                        <td>Vestibulum</td>
+                        <td>lacinia</td>
+                        <td>arcu</td>
+                    </tr>
+                    <tr>
+                        <td>1,011</td>
+                        <td>eget</td>
+                        <td>nulla</td>
+                        <td>Class</td>
+                        <td>aptent</td>
+                    </tr>
+                    <tr>
+                        <td>1,012</td>
+                        <td>taciti</td>
+                        <td>sociosqu</td>
+                        <td>ad</td>
+                        <td>litora</td>
+                    </tr>
+                    <tr>
+                        <td>1,013</td>
+                        <td>torquent</td>
+                        <td>per</td>
+                        <td>conubia</td>
+                        <td>nostra</td>
+                    </tr>
+                    <tr>
+                        <td>1,014</td>
+                        <td>per</td>
+                        <td>inceptos</td>
+                        <td>himenaeos</td>
+                        <td>Curabitur</td>
+                    </tr>
+                    <tr>
+                        <td>1,015</td>
+                        <td>sodales</td>
+                        <td>ligula</td>
+                        <td>in</td>
+                        <td>libero</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://mc.yandex.ru/metrika/tag.js"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha384-i+dHPTzZw7YVZOx9lbH5l6lP74sLRtMtwN2XjVqjf3uAGAREAF4LMIUDTWEVs4LI" crossorigin="anonymous"></script> 	  <script src="/css/examples/dashboard.js"></script><!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-179173139-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179173139-1');
+</script>
+<!-- Yandex.Metrika counter --> <script type="text/javascript"> (function(m,e,t,r,i,k,a){ m[i]=m[i]||function(){ (m[i].a=m[i].a||[]).push(arguments) }; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(67718821, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/67718821" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

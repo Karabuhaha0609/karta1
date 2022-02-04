@@ -8,8 +8,9 @@ import ru.kartanerud.buba.karta.models.enamy.Role;
 import ru.kartanerud.buba.karta.models.enamy.Status;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,36 +18,45 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    private String firstName;
+    private String LastName;
     @Column(name = "password", length = 1000)
     private String password;
     @Column(name = "email", unique = true)
     private String email;
     private boolean active;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "roles",
-            joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(value = EnumType.STRING)
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
     @OneToOne(cascade = CascadeType.REMOVE)
     private Bucket bucket;
     @Enumerated(value = EnumType.STRING)
     private Status status;
     private String phoneNumber;
-
-  /*   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-   @JoinColumn(name = "image_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Voditel> voditels = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Car> cars = new ArrayList<>();
+/*    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "image_id")
     private Image avatar;*/
-/*    private LocalDateTime dateOfCreate;
-
+    private LocalDateTime dateOfCreate;
+    /*инициализация локалдейт*/
     @PrePersist
     private void init(){
         dateOfCreate = LocalDateTime.now();
-    }*/
+    }
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Reis> reises;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StroiObject> stroiObjects = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Smena> smenas = new ArrayList<>();
+
 
 }

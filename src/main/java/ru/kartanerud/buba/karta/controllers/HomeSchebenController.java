@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/")
+@RequestMapping({"", "/"})
 public class HomeSchebenController {
 
         private final FilterService filterService;
@@ -60,7 +60,7 @@ public class HomeSchebenController {
         sc.addAll(schebens6);
         List<Scheben> sc1 = sc.stream()
                 .distinct()
-        //        .filter(n -> n.getFrakcia().equals(scheben))
+        //         .filter(n -> n.getFrakcia().equals(scheben))
                 .collect(Collectors.toList());
 
         model.addAttribute("schebens", sc1);

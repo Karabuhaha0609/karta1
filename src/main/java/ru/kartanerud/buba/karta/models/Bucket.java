@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,4 +28,9 @@ public class Bucket {
             joinColumns = @JoinColumn(name = "bucket_id"),
             inverseJoinColumns = @JoinColumn(name = "scheben_id"))
     private List<Scheben> schebens;
+    @ManyToMany(mappedBy = "buckets")
+    private List <Perevozhik> perevozhiks = new ArrayList<>();
+
+    public void setPerevozhik(Perevozhik perevozhik) {
+    }
 }

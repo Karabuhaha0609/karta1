@@ -51,6 +51,8 @@ public class Karier {
 
     @OneToMany(mappedBy = "karier", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Scheben> schebens = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Reis> reises;
 
     public void addSchebenToKarier(Scheben scheben) {
         scheben.setKarier(this);
