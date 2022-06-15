@@ -35,6 +35,8 @@ public class Car {
     private User user;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Reis> reises;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Smena> smenas;
 
 
     public Car(Principal principal) {

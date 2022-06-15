@@ -64,9 +64,5 @@ public class SmenaController {
         model.addAttribute("allSmenas", smenaService.getAllSmens());
         return "allSmena";
     }
-    @GetMapping
-    public String daysBeetween(Model model){
-        model.addAttribute("dates", getDaysBetweenDates)
-        return "proba/daysDate";
-    }
+
 }

@@ -27,4 +27,5 @@ public class OrderDetails {
     private Scheben scheben;
     private BigDecimal amount;
     private BigDecimal price;
+
 }

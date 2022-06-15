@@ -5,12 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
+import ru.kartanerud.buba.karta.models.enamy.DenNochSmena;
+import ru.kartanerud.buba.karta.models.enamy.VidCar;
 
 import javax.persistence.*;
 import java.security.Principal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +30,8 @@ public class Smena {
     private LocalDate dateSmena;
     private LocalTime denNachaloSmena;
     private LocalTime denKonecSmena;
-    private boolean nochnayaSmena;
+    @Enumerated(EnumType.STRING)
+    private DenNochSmena denNochSmena;
     private LocalTime nochNachaloSmena;
     private LocalTime nochKonecSmena;
     private Duration denSmenaPeriod;
@@ -38,6 +42,10 @@ public class Smena {
     @ManyToOne
     @JoinColumn(name = "voditel_id")
     private Voditel voditel;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Car> cars;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Reis> reises;
 
 
     public Smena(Principal principal) {
