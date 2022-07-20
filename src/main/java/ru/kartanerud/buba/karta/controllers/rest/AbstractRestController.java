@@ -6,8 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import ru.kartanerud.buba.karta.dto.ListItemDto;
+import ru.kartanerud.buba.karta.models.ComboListItem;
 
-public abstract class AbstractRestController<T, R extends JpaRepository<T, ?>> {
+import java.util.List;
+import java.util.stream.Collectors;
+
+public abstract class AbstractRestController<T extends ComboListItem, R extends JpaRepository<T, ?>> {
     protected R repo;
 
     public AbstractRestController(R repo) {
@@ -38,5 +43,13 @@ public abstract class AbstractRestController<T, R extends JpaRepository<T, ?>> {
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") T dbObj) {
         repo.delete(dbObj);
+    }
+
+    @GetMapping("list")
+    public List<ListItemDto> list(){
+        return repo.findAll()
+                .stream()
+                .map(entity -> new ListItemDto(entity.getId(), entity.getName()))
+                .collect(Collectors.toList());
     }
 }

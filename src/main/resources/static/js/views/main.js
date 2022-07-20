@@ -1,24 +1,18 @@
-
 define(function() {
     return {
         type: "line",
-        height: 400,
+        height: 300,
         rows: [
             {
                 view: 'button',
-                label: 'Cars',
+                label: 'Main',
                 click: function() {
-                    routie('cars')
+                    routie('main')
                 }
             },
             { template: "Row 1" },
             { template: "Row 2" },
-            {
-                cols: [
-                    { template: "col 1" },
-                    { template: "col 2" }
-                ]
-            }
+
         ]
     }
-})
+});

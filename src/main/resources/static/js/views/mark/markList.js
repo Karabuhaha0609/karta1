@@ -4,5 +4,6 @@ define(['component/listPage'], function(listPage) {
                     'resource->/index/api/mark',
                  [
                  { id:"name", editor:"text"},
-                 ])
+                 ]
+                 )
 })

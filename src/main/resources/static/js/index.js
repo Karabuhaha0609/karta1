@@ -27,8 +27,15 @@ function buildButton(label, route) {
 }
 
 require(
-    ['views/main', 'views/cars', 'views/marks', 'util/resourceProxy'],
-    function(main, cars, marks, resourceProxy) {
+    [
+    'views/main',
+    'views/mark/markList',
+    'views/grafik/grafikList',
+    'views/model/modelList',
+    'views/voditelWeb/voditelWebList',
+    'util/resourceProxy'
+    ],
+    function(main, marks, grafiks,  models, voditelWebs, resourceProxy) {
     webix.ready(function() {
         webix.ui({
             container: 'app',
@@ -39,7 +46,10 @@ require(
                     view: 'toolbar',
                     cols: [
                         buildButton('Home', ''),
-                        buildButton('Marks', 'marks')
+                        buildButton('Марки', 'marks'),
+                        buildButton('Модели', 'models'),
+                        buildButton('График', 'grafiks'),
+                        buildButton('Водители', 'voditelWebs')
                     ]
                 },
                 {
@@ -51,7 +61,11 @@ require(
 
     routie({
         '': buildRoute(main),
-        'cars': buildRoute(cars),
-        'marks': buildRoute(marks)
+        'marks': buildRoute(marks),
+        'models': buildRoute(models),
+        'grafiks': buildRoute(grafiks),
+        'voditelWebs': buildRoute(voditelWebs)
     })
+
+
 })
