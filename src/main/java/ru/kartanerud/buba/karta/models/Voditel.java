@@ -36,8 +36,6 @@ public class Voditel {
     private User user;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Reis> reises;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Smena> smenas;
 
     public  Voditel(Principal principal) {
     }

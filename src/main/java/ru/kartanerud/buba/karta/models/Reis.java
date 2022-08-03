@@ -74,8 +74,6 @@ public class Reis {
     private List<ReisDetails> details;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Order> orders;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Smena> smenas;
 
 
 

@@ -55,8 +55,6 @@ public class User  {
     private List<Reis> reises;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StroiObject> stroiObjects = new ArrayList<>();
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Smena> smenas = new ArrayList<>();
 
 
 }

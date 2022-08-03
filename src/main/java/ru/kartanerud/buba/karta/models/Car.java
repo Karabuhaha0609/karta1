@@ -8,6 +8,7 @@ import ru.kartanerud.buba.karta.models.enamy.VidCar;
 
 import javax.persistence.*;
 import java.security.Principal;
+import java.util.Calendar;
 import java.util.List;
 
 @Data
@@ -35,9 +36,6 @@ public class Car {
     private User user;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Reis> reises;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Smena> smenas;
-
 
     public Car(Principal principal) {
     }
