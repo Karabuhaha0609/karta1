@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.kartanerud.buba.karta.models.User;
 import ru.kartanerud.buba.karta.models.UserPrincipal;
-import ru.kartanerud.buba.karta.repo.UserRepo;
+import ru.kartanerud.buba.karta.repo.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserRepo userRepo;
+    UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
         if (user == null){
             throw new UsernameNotFoundException("Пользователь не найден");
         }
